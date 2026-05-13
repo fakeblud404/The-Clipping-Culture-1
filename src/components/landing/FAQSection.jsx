@@ -17,22 +17,22 @@ export default function FAQSection({ onOpenDrawer }) {
     <section id="faq" className="section-shell section-pad">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <p className="text-gradient-orange text-sm font-bold uppercase tracking-[0.2em]">FAQ</p>
-          <h2 className="mt-4 text-4xl md:text-6xl font-black uppercase heading-tight text-balance">Your Questions, Answered.</h2>
-          <button type="button" onClick={onOpenDrawer} className="btn-metallic-orange mt-8 rounded-lg px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] transition hover:scale-[1.02]">
-            BOOK A CALL
+          <p className="about-badge">FAQ</p>
+          <h2 className="section-heading mt-4 text-balance">Your Questions, <span className="orange-underline">Answered.</span></h2>
+          <button type="button" onClick={onOpenDrawer} className="section-cta btn-metallic-orange mt-8 rounded-lg transition hover:scale-[1.02]">
+            Book a Call
           </button>
         </div>
         <Accordion.Root type="single" collapsible className="space-y-4">
           {faqs.map(([question, answer]) => (
             <Accordion.Item key={question} value={question} className="overflow-hidden rounded-xl border border-white/[0.05] bg-[rgba(20,20,22,0.5)] data-[state=open]:border-ember/20">
               <Accordion.Header>
-                <Accordion.Trigger className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-lg font-semibold text-[hsl(0,0%,97%)]">
+                <Accordion.Trigger className="accordion-question flex w-full items-center justify-between gap-4 px-5 py-5 text-left">
                   {question}
-                  <span className="text-gradient-orange text-2xl">+</span>
+                  <span className="metallic-text text-2xl">+</span>
                 </Accordion.Trigger>
               </Accordion.Header>
-              <Accordion.Content className="px-5 pb-5 leading-relaxed text-[hsl(0,0%,55%)]">
+              <Accordion.Content className="accordion-answer px-5 pb-5">
                 {answer}
               </Accordion.Content>
             </Accordion.Item>

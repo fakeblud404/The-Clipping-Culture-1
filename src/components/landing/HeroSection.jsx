@@ -107,9 +107,7 @@ function VideoPlayer() {
             <span className="absolute left-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-ember" style={{ width: `${progress}%` }} />
             <span className="absolute top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white group-hover:block" style={{ left: `${progress}%` }} />
           </button>
-          <span className="w-24 text-right text-xs md:text-sm text-zinc-300">
-            {formatTime(current)} / {formatTime(duration)}
-          </span>
+          <span className="video-time w-24 text-right">{formatTime(current)} / {formatTime(duration)}</span>
         </div>
       </div>
     </div>
@@ -127,23 +125,23 @@ export default function HeroSection({ onOpenDrawer }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <div className="mx-auto inline-flex items-center gap-3 rounded-full border border-ember/30 bg-ember/[0.05] px-4 py-2 text-sm font-semibold text-[#ff6b2b]">
+        <div className="hero-badge mx-auto inline-flex items-center gap-3 rounded-full border border-ember/30 bg-ember/[0.05] px-4 py-2">
           <span className="h-2.5 w-2.5 rounded-full bg-ember shadow-glow animate-pulse" />
-          For businesses, brands, and creators
+          <span>For businesses, brands, and creators</span>
         </div>
-        <h1 className="mx-auto mt-7 max-w-6xl text-[clamp(2rem,5vw,4rem)] font-black uppercase heading-tight text-balance">
-          Add <span className="text-gradient-orange orange-underline">5-10M Views</span> Every Month By Turning One Long Video Into{' '}
-          <span className="text-gradient-orange orange-underline">Multiple Daily Posts</span>
+        <h1 className="hero-headline mx-auto mt-7 max-w-6xl uppercase text-balance">
+          Add <span className="metallic-text orange-underline">5-10M Views</span> Every Month By Turning One Long Video Into{' '}
+          <span className="hero-italic-accent orange-underline">Multiple Daily Posts</span>
         </h1>
-        <p className="mx-auto mt-7 max-w-3xl text-lg leading-relaxed text-[hsl(0,0%,55%)]">
-          With access to <strong className="font-bold text-[hsl(0,0%,97%)]">1.5k+ short-form editors</strong>, we distribute content at scale across <strong className="font-bold text-[hsl(0,0%,97%)]">Instagram, TikTok, and YouTube</strong> with unmatched efficiency.
+        <p className="hero-subtext mx-auto mt-7 max-w-3xl">
+          With access to <span className="hero-emphasis">1.5k+ short-form editors</span>, we distribute content at scale across <span className="hero-emphasis">Instagram, TikTok, and YouTube</span> with unmatched efficiency.
         </p>
         <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-          <button type="button" onClick={onOpenDrawer} className="btn-metallic-orange rounded-lg px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] transition hover:scale-[1.02]">
-            BOOK YOUR STRATEGY CALL NOW
+          <button type="button" onClick={onOpenDrawer} className="hero-cta-primary btn-metallic-orange rounded-lg transition hover:scale-[1.02]">
+            Book Your Strategy Call Now
           </button>
-          <a href="#case-studies" className="outline-cta rounded-lg px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:scale-[1.02]">
-            SEE CASE STUDIES
+          <a href="#case-studies" className="hero-cta-secondary outline-cta rounded-lg hover:scale-[1.02]">
+            See Case Studies
           </a>
         </div>
         <VideoPlayer />

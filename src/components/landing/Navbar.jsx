@@ -25,7 +25,7 @@ export default function Navbar({ onOpenDrawer }) {
       key={href}
       href={href}
       onClick={() => setOpen(false)}
-      className="text-sm font-semibold text-[hsl(0,0%,55%)] transition-colors duration-200 hover:text-white"
+      className="navbar-link transition-colors duration-200"
     >
       {label}
     </a>
@@ -38,17 +38,17 @@ export default function Navbar({ onOpenDrawer }) {
       }`}
     >
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5">
-        <a href="#top" className="metallic-orange text-lg md:text-2xl font-extrabold uppercase tracking-[-0.02em]">
-          THE CLIPPING COMPANY
+        <a href="#top" className="navbar-logo">
+          The Clipping Company
         </a>
         <div className="hidden items-center gap-7 lg:flex">
           {links.map(([label, href]) => navLink(label, href))}
           <button
             type="button"
             onClick={onOpenDrawer}
-            className="btn-metallic-orange rounded-lg px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] transition hover:scale-[1.02]"
+            className="navbar-button btn-metallic-orange rounded-lg transition hover:scale-[1.02]"
           >
-            BOOK A CALL
+            Book a Call
           </button>
         </div>
         <button
@@ -73,16 +73,25 @@ export default function Navbar({ onOpenDrawer }) {
             exit={{ opacity: 0, height: 0 }}
           >
             <div className="flex flex-col gap-5">
-              {links.map(([label, href]) => navLink(label, href))}
+              {links.map(([label, href]) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className="mobile-menu-link"
+                >
+                  {label}
+                </a>
+              ))}
               <button
                 type="button"
                 onClick={() => {
                   setOpen(false);
                   onOpenDrawer();
                 }}
-                className="btn-metallic-orange rounded-lg px-6 py-3 text-xs font-bold uppercase tracking-[0.15em]"
+                className="navbar-button btn-metallic-orange rounded-lg"
               >
-                BOOK A CALL
+                Book a Call
               </button>
             </div>
           </motion.div>

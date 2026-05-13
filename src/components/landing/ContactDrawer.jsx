@@ -17,20 +17,20 @@ export default function ContactDrawer({ open, onClose }) {
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', stiffness: 150, damping: 24 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mx-auto mt-3 h-[6px] w-12 rounded-[3px] bg-white/20" />
             <div className="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-5 md:px-8">
               <div>
-                <h2 className="text-3xl md:text-5xl font-black uppercase text-[hsl(0,0%,97%)]">Cut to the Chase</h2>
-                <p className="mt-1 text-[hsl(0,0%,55%)]">Book your 30-minute strategy call</p>
+                <h2 className="contact-heading">Cut to the Chase</h2>
+                <p className="contact-sub-description mt-1">Book your 30-minute strategy call</p>
               </div>
               <button
                 type="button"
                 aria-label="Close contact drawer"
                 onClick={onClose}
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-xl text-white transition hover:border-ember hover:text-orange-300"
+                className="drawer-close-button"
               >
                 X
               </button>

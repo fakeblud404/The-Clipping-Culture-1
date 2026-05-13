@@ -23,16 +23,9 @@ export default function StatsBar() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: index * 0.08 }}
           >
-            <div className="text-gradient-orange text-[clamp(2.5rem,5vw,4rem)] font-black">{value}</div>
-            <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-[hsl(0,0%,55%)]">{label}</p>
+            <div className="stat-number">{value}</div>
+            <p className="stat-label mt-2">{label}</p>
           </motion.div>
-        ))}
-      </div>
-      <div className="mt-10 grid grid-cols-2 gap-3 opacity-55 sm:grid-cols-3 lg:grid-cols-6">
-        {['Creator Lab', 'Northstar', 'Signal', 'Launchbox', 'Reelhaus', 'Momentum'].map((brand) => (
-          <div key={brand} className="grid h-16 place-items-center rounded-xl border border-white/[0.05] bg-[hsl(20,5%,8%)] text-xs font-semibold uppercase tracking-[0.24em] text-[hsl(0,0%,55%)]">
-            {brand}
-          </div>
         ))}
       </div>
     </section>

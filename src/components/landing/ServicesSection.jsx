@@ -14,8 +14,8 @@ export default function ServicesSection() {
 
   return (
     <section id="services" ref={ref} className="section-shell section-pad">
-      <p className="text-gradient-orange text-sm font-bold uppercase tracking-[0.2em]">Services</p>
-      <h2 className="mt-4 text-4xl md:text-6xl font-black uppercase heading-tight">What We Do</h2>
+      <p className="section-badge">Services</p>
+      <h2 className="section-heading mt-4 uppercase">What We Do</h2>
       <div className="mt-10 grid gap-5 md:grid-cols-2">
         {services.map(([num, title, subtitle, description], index) => (
           <motion.article
@@ -25,10 +25,10 @@ export default function ServicesSection() {
             transition={{ duration: 0.55, delay: index * 0.08 }}
             className="group dark-card dark-card-hover p-7"
           >
-            <div className="text-gradient-orange text-6xl font-black opacity-40">{num}</div>
-            <h3 className="mt-6 text-2xl md:text-3xl font-extrabold uppercase tracking-[-0.03em]">{title}</h3>
-            <p className="mt-2 text-sm font-semibold text-[hsl(0,0%,97%)]">{subtitle}</p>
-            <p className="mt-5 leading-relaxed text-[hsl(0,0%,55%)]">{description}</p>
+            <div className="card-index">{num}</div>
+            <h3 className="card-title mt-6">{title}</h3>
+            <p className="card-subtitle mt-2">{subtitle}</p>
+            <p className="card-description mt-5">{description}</p>
           </motion.article>
         ))}
       </div>

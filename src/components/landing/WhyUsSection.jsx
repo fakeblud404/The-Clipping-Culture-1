@@ -14,8 +14,8 @@ export default function WhyUsSection() {
 
   return (
     <section id="why-us" ref={ref} className="section-shell section-pad">
-      <p className="text-gradient-orange text-sm font-bold uppercase tracking-[0.2em]">Why Us</p>
-      <h2 className="mt-4 max-w-4xl text-4xl md:text-6xl font-black uppercase heading-tight">The Clipping Company Difference</h2>
+      <p className="section-badge">Why Us</p>
+      <h2 className="section-heading mt-4 max-w-4xl uppercase">The Clipping Company Difference</h2>
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {features.map(([icon, title, description], index) => (
           <motion.article
@@ -26,8 +26,8 @@ export default function WhyUsSection() {
             className="dark-card dark-card-hover p-6"
           >
             <div className="grid h-12 w-12 place-items-center rounded-xl bg-ember/10 text-lg font-black text-[#e14700]">{icon}</div>
-            <h3 className="mt-6 text-xl font-extrabold uppercase tracking-[-0.03em]">{title}</h3>
-            <p className="mt-4 leading-relaxed text-[hsl(0,0%,55%)]">{description}</p>
+            <h3 className="card-title mt-6">{title}</h3>
+            <p className="card-description mt-4">{description}</p>
           </motion.article>
         ))}
       </div>

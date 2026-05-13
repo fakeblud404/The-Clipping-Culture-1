@@ -70,8 +70,7 @@ export default function Splash() {
                 onClick={() => window.open('https://whop.com/joined/the-clipping-company-1/', '_blank', 'noopener,noreferrer')}
                 className="splash-button splash-button-clipper"
               >
-                <span>I'm a Clipper</span>
-                <span aria-hidden="true" className="splash-button-arrow">-&gt;</span>
+                I'm a Clipper
               </button>
             </motion.div>
             <motion.div initial="hidden" animate="show" variants={item} transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}>
@@ -79,8 +78,7 @@ export default function Splash() {
                 to="/brand"
                 className="splash-button splash-button-brand"
               >
-                <span>I'm a Brand</span>
-                <span aria-hidden="true" className="splash-button-arrow">-&gt;</span>
+                I'm a Brand
               </Link>
             </motion.div>
           </div>
