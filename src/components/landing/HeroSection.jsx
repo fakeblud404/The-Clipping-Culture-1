@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const videoUrl = 'https://media.base44.com/videos/public/69f9f57268278312ff81c602/588496832_tcc.mov';
+const videoUrl = '/tcc_video.mp4';
+const videoPoster = '/tcc_video_poster.jpg';
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return '0:00';
@@ -33,7 +34,7 @@ function VideoPlayer() {
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
-      video.play();
+      video.play().catch(() => {});
       setPlaying(true);
       hideTimer.current = window.setTimeout(() => setControlsVisible(false), 2500);
     } else {
@@ -46,12 +47,14 @@ function VideoPlayer() {
 
   const toggleMute = () => {
     const video = videoRef.current;
+    if (!video) return;
     video.muted = !video.muted;
     setMuted(video.muted);
   };
 
   const seek = (event) => {
     const video = videoRef.current;
+    if (!video) return;
     const rect = event.currentTarget.getBoundingClientRect();
     const next = ((event.clientX - rect.left) / rect.width) * duration;
     video.currentTime = Math.max(0, Math.min(duration, next));
@@ -61,53 +64,64 @@ function VideoPlayer() {
 
   return (
     <div
-      className="group relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-black shadow-[0_25px_50px_rgba(225,71,0,0.05)]"
+      className="glass-card glass-glare-effect group relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-2xl border border-white/15 bg-black/40 p-1.5 shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-xl"
       onMouseMove={showControls}
       onMouseLeave={() => playing && setControlsVisible(false)}
     >
-      <video
-        ref={videoRef}
-        src={videoUrl}
-        className="aspect-video w-full bg-black object-cover"
-        playsInline
-        preload="metadata"
-        onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
-        onTimeUpdate={(event) => setCurrent(event.currentTarget.currentTime)}
-        onEnded={() => {
-          setPlaying(false);
-          setControlsVisible(true);
-        }}
-      />
-      {!playing && (
-        <button
-          type="button"
-          aria-label="Play video"
-          onClick={togglePlay}
-          className="absolute inset-0 grid place-items-center bg-black/20"
+      <div className="relative overflow-hidden rounded-xl bg-black">
+        <video
+          ref={videoRef}
+          src={videoUrl}
+          poster={videoPoster}
+          className="aspect-video w-full object-cover"
+          playsInline
+          preload="auto"
+          onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
+          onTimeUpdate={(event) => setCurrent(event.currentTarget.currentTime)}
+          onEnded={() => {
+            setPlaying(false);
+            setControlsVisible(true);
+          }}
+        />
+        {!playing && (
+          <button
+            type="button"
+            aria-label="Play video"
+            onClick={togglePlay}
+            className="absolute inset-0 grid place-items-center bg-black/30 backdrop-blur-[2px] transition-all hover:bg-black/20"
+          >
+            <span className="grid h-24 w-24 place-items-center rounded-full border border-ember/70 bg-black/60 text-4xl text-white shadow-glow backdrop-blur-md transition-all group-hover:scale-110 hover:border-ember hover:bg-black/80">
+              ▶
+            </span>
+          </button>
+        )}
+        <div
+          className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent px-4 pb-4 pt-12 transition-opacity duration-300 ${
+            controlsVisible || !playing ? 'opacity-100' : 'opacity-0'
+          }`}
         >
-          <span className="grid h-24 w-24 place-items-center rounded-full border border-ember/60 bg-black/70 text-4xl text-white shadow-glow transition group-hover:scale-105">
-            ▶
-          </span>
-        </button>
-      )}
-      <div
-        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent px-4 pb-4 pt-12 transition-opacity duration-300 ${
-          controlsVisible || !playing ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="flex items-center gap-3">
-          <button type="button" onClick={togglePlay} className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white hover:border-ember">
-            {playing ? 'II' : '▶'}
-          </button>
-          <button type="button" onClick={toggleMute} className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white hover:border-ember">
-            {muted ? 'M' : 'S'}
-          </button>
-          <button type="button" aria-label="Seek video timeline" onClick={seek} className="relative h-5 flex-1 cursor-pointer">
-            <span className="absolute left-0 top-1/2 h-1 w-full -translate-y-1/2 rounded-full bg-white/20" />
-            <span className="absolute left-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-ember" style={{ width: `${progress}%` }} />
-            <span className="absolute top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white group-hover:block" style={{ left: `${progress}%` }} />
-          </button>
-          <span className="video-time w-24 text-right">{formatTime(current)} / {formatTime(duration)}</span>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={togglePlay}
+              className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md hover:border-ember hover:bg-ember/20 transition"
+            >
+              {playing ? 'II' : '▶'}
+            </button>
+            <button
+              type="button"
+              onClick={toggleMute}
+              className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md hover:border-ember hover:bg-ember/20 transition"
+            >
+              {muted ? 'M' : 'S'}
+            </button>
+            <button type="button" aria-label="Seek video timeline" onClick={seek} className="relative h-5 flex-1 cursor-pointer">
+              <span className="absolute left-0 top-1/2 h-1.5 w-full -translate-y-1/2 rounded-full bg-white/20" />
+              <span className="absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-ember shadow-[0_0_10px_#e14700]" style={{ width: `${progress}%` }} />
+              <span className="absolute top-1/2 hidden h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-md group-hover:block" style={{ left: `${progress}%` }} />
+            </button>
+            <span className="video-time w-24 text-right">{formatTime(current)} / {formatTime(duration)}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -125,7 +139,7 @@ export default function HeroSection({ onOpenDrawer }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <div className="hero-badge mx-auto inline-flex items-center gap-3 rounded-full border border-ember/30 bg-ember/[0.05] px-4 py-2">
+        <div className="hero-badge glass-card mx-auto inline-flex items-center gap-3 rounded-full border border-ember/40 bg-ember/[0.08] px-5 py-2 backdrop-blur-md shadow-glow">
           <span className="h-2.5 w-2.5 rounded-full bg-ember shadow-glow animate-pulse" />
           <span>For businesses, brands, and creators</span>
         </div>
@@ -149,3 +163,4 @@ export default function HeroSection({ onOpenDrawer }) {
     </section>
   );
 }
+

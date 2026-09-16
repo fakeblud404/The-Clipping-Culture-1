@@ -15,17 +15,39 @@ export default function Home() {
   const openDrawer = () => setDrawerOpen(true);
 
   return (
-    <div className="relative min-h-screen bg-obsidian text-white">
-      <Navbar onOpenDrawer={openDrawer} />
-      <HeroSection onOpenDrawer={openDrawer} />
-      <StatsBar />
-      <ServicesSection />
-      <WhyUsSection />
-      <CaseStudySection onOpenDrawer={openDrawer} />
-      <AboutSection onOpenDrawer={openDrawer} />
-      <FAQSection onOpenDrawer={openDrawer} />
-      <FooterSection />
-      <ContactDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-    </div>
+    <>
+      {/* ── Fixed background video with blur — lives outside overflow-hidden wrapper ── */}
+      <video
+        className="fixed inset-0 h-full w-full object-cover pointer-events-none"
+        style={{ zIndex: -2, filter: 'blur(16px)', transform: 'scale(1.08)', opacity: 0.70 }}
+        src="/homevid.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+      />
+
+      {/* ── Dark tint overlay (lighter to let video bleed through clearly) ── */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: -1, background: 'rgba(5, 5, 8, 0.25)' }}
+      />
+
+      <div className="relative min-h-screen text-white bg-transparent" style={{ zIndex: 1 }}>
+        <div className="moving-ambient-glare" aria-hidden="true" />
+        <Navbar onOpenDrawer={openDrawer} />
+        <HeroSection onOpenDrawer={openDrawer} />
+        <StatsBar />
+        <ServicesSection />
+        <WhyUsSection />
+        <CaseStudySection onOpenDrawer={openDrawer} />
+        <AboutSection onOpenDrawer={openDrawer} />
+        <FAQSection onOpenDrawer={openDrawer} />
+        <FooterSection />
+        <ContactDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      </div>
+    </>
   );
 }
+

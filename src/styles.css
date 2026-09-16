@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +8,6 @@
 
 :root {
   color-scheme: dark;
-  background: #0A0A0B;
   --metallic-orange: linear-gradient(160deg, #ff9a5c 0%, #e14700 20%, #ff6b2b 40%, #b33900 55%, #e14700 70%, #ff9a5c 85%, #c84000 100%);
   --metallic-orange-button: linear-gradient(160deg, #ff7e30 0%, #e14700 30%, #b33900 60%, #e14700 80%, #ff7e30 100%);
   --metallic-orange-button-hover: linear-gradient(160deg, #ff9a5c 0%, #e14700 30%, #c84000 60%, #e14700 80%, #ff9a5c 100%);
@@ -95,7 +95,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #0A0A0B;
+  background: transparent;
   font-family: 'Barlow', sans-serif !important;
   font-weight: 400;
   color: var(--text-primary);
@@ -191,23 +191,92 @@ label {
 }
 
 .section-overlay {
-  background: linear-gradient(180deg, rgba(10, 10, 11, 0.92), rgba(10, 10, 11, 0.88), rgba(20, 20, 22, 0.85));
+  background: linear-gradient(180deg, rgba(10, 10, 11, 0.25), rgba(10, 10, 11, 0.20), rgba(20, 20, 22, 0.15));
 }
 
 .dark-card {
-  background: var(--card-bg);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(18, 18, 24, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 1rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
 .dark-card-hover {
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .dark-card-hover:hover {
-  border-color: rgba(225, 71, 0, 0.3);
-  box-shadow: inset 0 1px 0 rgba(225, 71, 0, 0.18), 0 -18px 40px rgba(225, 71, 0, 0.07);
+  border-color: rgba(225, 71, 0, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 -18px 40px rgba(225, 71, 0, 0.12), 0 15px 35px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
 }
+
+@keyframes greyGlareSweep {
+  0% {
+    transform: translateX(-160%) translateY(-160%) rotate(25deg);
+  }
+  45%, 100% {
+    transform: translateX(260%) translateY(260%) rotate(25deg);
+  }
+}
+
+.glass-glare-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-glare-effect::after,
+.dark-card::after {
+  content: '';
+  position: absolute;
+  top: -90%;
+  left: -90%;
+  width: 280%;
+  height: 280%;
+  pointer-events: none;
+  z-index: 4;
+  background: linear-gradient(
+    115deg,
+    transparent 15%,
+    rgba(140, 145, 155, 0) 32%,
+    rgba(180, 185, 195, 0.12) 46%,
+    rgba(240, 245, 255, 0.28) 50%,
+    rgba(180, 185, 195, 0.12) 54%,
+    rgba(140, 145, 155, 0) 68%,
+    transparent 85%
+  );
+  animation: greyGlareSweep 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes ambientGreyGlare {
+  0% {
+    transform: translate(-10%, -10%) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(15%, 15%) scale(1.15);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translate(-10%, -10%) scale(1);
+    opacity: 0.15;
+  }
+}
+
+.moving-ambient-glare {
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at 30% 40%, rgba(200, 210, 220, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(160, 170, 185, 0.12) 0%, transparent 55%);
+  animation: ambientGreyGlare 12s ease-in-out infinite;
+}
+
 
 .heading-tight {
   letter-spacing: -0.04em;
@@ -385,21 +454,24 @@ label {
 
 /* Specific Element Classes */
 .splash-logo {
-  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 800;
   font-style: normal;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  font-size: clamp(2.5rem, 7vw, 6rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
   color: #ffffff;
   text-transform: none;
 }
 
 .splash-tagline {
-  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 500;
   font-style: normal;
-  letter-spacing: 0;
-  line-height: 1.6;
-  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  font-size: clamp(0.85rem, 1.6vw, 1.1rem);
+  text-transform: uppercase;
   background: var(--metallic-orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -407,31 +479,91 @@ label {
   color: transparent;
 }
 
+/* ── Splash glass card ── */
+.splash-glass-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.75rem 3.5rem;
+  border-radius: 1.75rem;
+  overflow: hidden;
+
+  /* glass surface */
+  background: rgba(12, 12, 18, 0.52);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+
+  /* glassy border */
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 32px 80px rgba(0, 0, 0, 0.65),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* moving grey glare sweep */
+@keyframes splashGlareSweep {
+  0% {
+    transform: translateX(-200%) translateY(-200%) rotate(30deg);
+  }
+  60%, 100% {
+    transform: translateX(300%) translateY(300%) rotate(30deg);
+  }
+}
+
+.splash-glass-glare {
+  position: absolute;
+  inset: -100%;
+  width: 340%;
+  height: 340%;
+  pointer-events: none;
+  z-index: 5;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(160, 165, 175, 0) 36%,
+    rgba(195, 200, 215, 0.13) 47%,
+    rgba(240, 244, 255, 0.32) 50%,
+    rgba(195, 200, 215, 0.13) 53%,
+    rgba(160, 165, 175, 0) 64%,
+    transparent 80%
+  );
+  animation: splashGlareSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ── Splash buttons ── */
 .splash-button {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 0.75rem;
-  background: transparent;
-  padding: 1rem 2.5rem;
-  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.9rem 2.25rem;
+  font-weight: 600;
   font-style: normal;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.04em;
   line-height: 1;
   font-size: 0.875rem;
   color: #ffffff;
   text-transform: none;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .splash-button-brand:hover,
 .splash-button-brand:focus-visible,
 .splash-button-clipper:hover,
 .splash-button-clipper:focus-visible {
-  border-color: rgba(255, 140, 60, 0.2);
+  border-color: rgba(255, 140, 60, 0.25);
   background: var(--metallic-orange-button);
-  box-shadow: 0 0 30px rgba(225,71,0,0.4), 0 0 60px rgba(225,71,0,0.15), inset 0 1px 0 rgba(255,160,80,0.3);
+  box-shadow: 0 0 30px rgba(225,71,0,0.45), 0 0 60px rgba(225,71,0,0.18), inset 0 1px 0 rgba(255,160,80,0.3);
   outline: none;
 }
 

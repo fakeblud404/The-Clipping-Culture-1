@@ -14,11 +14,11 @@ export default function StatsBar() {
 
   return (
     <section ref={ref} className="section-shell section-pad">
-      <div className="grid gap-0 overflow-hidden rounded-2xl border border-white/[0.06] md:grid-cols-4">
+      <div className="glass-card glass-glare-effect grid gap-0 overflow-hidden rounded-2xl border border-white/15 bg-[rgba(18,18,24,0.6)] backdrop-blur-xl md:grid-cols-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
         {stats.map(([value, label], index) => (
           <motion.div
             key={label}
-            className="border-b border-white/[0.06] bg-[rgba(10,10,11,0.55)] p-7 text-center md:border-b-0 md:border-r last:border-r-0"
+            className="border-b border-white/10 bg-transparent p-7 text-center md:border-b-0 md:border-r last:border-r-0"
             initial={{ opacity: 0, y: 28 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: index * 0.08 }}
@@ -31,3 +31,4 @@ export default function StatsBar() {
     </section>
   );
 }
+

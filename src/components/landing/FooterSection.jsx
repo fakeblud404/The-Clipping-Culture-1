@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const links = [
   ['Services', '#services'],
@@ -9,12 +10,12 @@ const links = [
 
 export default function FooterSection() {
   return (
-    <footer className="relative z-10 border-t border-white/[0.05] bg-[#0A0A0B] py-10">
+    <footer className="relative z-10 border-t border-white/[0.08] bg-[rgba(10,10,14,0.9)] backdrop-blur-xl py-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 md:flex-row md:items-end md:justify-between">
         <div>
-          <a href="#top" className="footer-logo">
+          <Link to="/" className="footer-logo inline-block transition-opacity hover:opacity-80">
             THE CLIPPING COMPANY
-          </a>
+          </Link>
           <p className="footer-tagline mt-3 max-w-md">Short-form distribution for brands that want more reach from every recording.</p>
           <p className="footer-copyright mt-6">© 2026 The Clipping Company. All rights reserved.</p>
         </div>
@@ -29,3 +30,4 @@ export default function FooterSection() {
     </footer>
   );
 }
+

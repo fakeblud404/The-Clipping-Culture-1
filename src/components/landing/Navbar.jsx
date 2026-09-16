@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
@@ -33,14 +34,16 @@ export default function Navbar({ onOpenDrawer }) {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition ${
-        scrolled ? 'border-b border-white/[0.05] bg-[rgba(10,10,11,0.8)] backdrop-blur-[16px]' : 'bg-transparent'
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? 'border-b border-white/[0.1] bg-[rgba(12,12,16,0.75)] backdrop-blur-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+          : 'border-b border-white/[0.05] bg-[rgba(10,10,11,0.4)] backdrop-blur-[12px]'
       }`}
     >
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5">
-        <a href="#top" className="navbar-logo">
+        <Link to="/" className="navbar-logo transition-opacity hover:opacity-80">
           The Clipping Company
-        </a>
+        </Link>
         <div className="hidden items-center gap-7 lg:flex">
           {links.map(([label, href]) => navLink(label, href))}
           <button
@@ -55,7 +58,7 @@ export default function Navbar({ onOpenDrawer }) {
           type="button"
           aria-label="Toggle navigation"
           onClick={() => setOpen((value) => !value)}
-          className="lg:hidden grid h-11 w-11 place-items-center rounded-full border border-white/15"
+          className="lg:hidden grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 backdrop-blur-md"
         >
           <span className="relative h-4 w-5">
             <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 7 : 0 }} className="absolute left-0 top-0 h-0.5 w-5 bg-white" />
@@ -67,7 +70,7 @@ export default function Navbar({ onOpenDrawer }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="lg:hidden border-t border-white/[0.05] bg-[rgba(10,10,11,0.95)] px-5 py-5 backdrop-blur-[16px]"
+            className="lg:hidden border-t border-white/[0.08] bg-[rgba(12,12,16,0.92)] px-5 py-5 backdrop-blur-[24px]"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -100,3 +103,4 @@ export default function Navbar({ onOpenDrawer }) {
     </header>
   );
 }
+
